@@ -24,6 +24,7 @@ jobs:
                 repo,
                 number
             });
+            console.log(changedFiles)
             
             let commentbody = "";
             let also = false;
