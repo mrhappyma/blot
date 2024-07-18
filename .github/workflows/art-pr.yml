@@ -15,11 +15,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            console.log(context.payload)
             const pr = context.payload.pull_request;
             const owner = context.payload.repository.owner;
             const repo = context.payload.repository.repo;
             const number = context.payload.number;
-            const changedFiles = github.rest.pulls.listFiles({
+            const changedFiles = await github.rest.pulls.listFiles({
                 owner,
                 repo,
                 number
