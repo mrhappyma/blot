@@ -20,10 +20,10 @@ jobs:
             const owner = context.payload.repository.owner.login;
             const repo = context.payload.repository.name;
             const number = context.payload.number;
-            const changedFiles = await github.rest.pulls.listFiles({
-                owner,
-                repo,
-                number
+            const changedFiles = await github.request(`GET /repos/${owner}/${repo}/pulls/${number}/files`, {
+              owner: owner,
+              repo: repo,
+              pull_number: number,
             });
             console.log(changedFiles)
             
@@ -32,7 +32,7 @@ jobs:
 
             for (const file of changedFiles) {
               if (!file.filename.endsWith(index.js)) continue;
-              const rawUrl = `https://raw.githubusercontent.com/${context.repository.owner}/${context.repository.repo}/${context.sha}/${file.filename}`;
+              const rawUrl = file.raw_url;
               const blotUrl = `https://blot.hackclub.com/editor?src=${rawUrl}`;
 
               if (!also) {
