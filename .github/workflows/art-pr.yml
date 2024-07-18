@@ -15,14 +15,22 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = context.issue;
-            const changedFiles = pr.changed_files;
+            const pr = context.payload.pull_request;
+            const owner = context.payload.repository.owner;
+            const repo = context.payload.repository.repo;
+            const number = context.payload.number;
+            const changedFiles = github.rest.pulls.listFiles({
+                owner,
+                repo,
+                number
+            });
+            
             let commentbody = "";
             let also = false;
 
             for (const file of changedFiles) {
-              if (!file.path.endsWith(index.js)) continue;
-              const rawUrl = `https://raw.githubusercontent.com/${pullRequest.repository.owner}/${pullRequest.repository.repo}/${pullRequest.head.sha}/${file.path}`;
+              if (!file.filename.endsWith(index.js)) continue;
+              const rawUrl = `https://raw.githubusercontent.com/${context.repository.owner}/${context.repository.repo}/${context.sha}/${file.filename}`;
               const blotUrl = `https://blot.hackclub.com/editor?src=${rawUrl}`;
 
               if (!also) {
