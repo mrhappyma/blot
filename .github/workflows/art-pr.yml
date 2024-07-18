@@ -46,9 +46,9 @@ jobs:
             if (!also) return;
 
             github.rest.issues.createComment({
-              issue_number: pullRequest.number,
-              owner: pullRequest.repository.owner,
-              repo: pullRequest.repository.repo,
+              issue_number: number,
+              owner: owner,
+              repo: repo,
               body: commentBody
             });
 
