@@ -1,0 +1,45 @@
+name: Art PR Comment
+run-name: Art PR Comment
+on: 
+    pull_request_target: 
+        types: [opened]
+        paths: 'art/**'
+jobs:
+  comment-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.issue;
+            const changedFiles = pr.changed_files;
+            let commentbody = "";
+            let also = false;
+
+            for (const file of changedFiles) {
+              if (!file.path.endsWith(index.js)) continue;
+              const rawUrl = `https://raw.githubusercontent.com/${pullRequest.repository.owner}/${pullRequest.repository.repo}/${pullRequest.head.sha}/${file.path}`;
+              const blotUrl = `https://blot.hackclub.com/editor?src=${rawUrl}`;
+
+              if (!also) {
+                commentbody += `\`${file.path}\` looks like art! [preview it in the editor](${blotUrl})\n`
+                also = true
+              } else {
+                commentbody += `\`${file.path}\` *also* looks like art! [preview it in the editor](${blotUrl})\n`
+              }
+            }
+
+            if (!also) return;
+
+            github.rest.issues.createComment({
+              issue_number: pullRequest.number,
+              owner: pullRequest.repository.owner,
+              repo: pullRequest.repository.repo,
+              body: commentBody
+            });
+
+      
