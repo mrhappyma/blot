@@ -17,8 +17,8 @@ jobs:
           script: |
             console.log(context.payload)
             const pr = context.payload.pull_request;
-            const owner = context.payload.repository.owner;
-            const repo = context.payload.repository.repo;
+            const owner = context.payload.repository.owner.login;
+            const repo = context.payload.repository.name;
             const number = context.payload.number;
             const changedFiles = await github.rest.pulls.listFiles({
                 owner,
