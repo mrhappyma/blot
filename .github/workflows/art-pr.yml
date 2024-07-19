@@ -43,12 +43,12 @@ jobs:
 
             if (!also) return;
 
-            console.log(commentBody)
+            console.log(commentbody)
             github.rest.issues.createComment({
               issue_number: number,
               owner: owner,
               repo: repo,
-              body: commentBody
+              body: commentbody
             });
 
       
