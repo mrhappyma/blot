@@ -30,7 +30,7 @@ jobs:
 
             for (const file of changedFiles.data) {
               if (!file.filename.endsWith('index.js')) continue;
-              const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${file.sha}/${file.filename}`
+              const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${context.payload.head.sha}/${file.filename}`
               const blotUrl = `https://blot.hackclub.com/editor?src=${rawUrl}`;
 
               if (!also) {
