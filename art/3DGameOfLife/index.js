@@ -8,7 +8,7 @@ const CANVAS_SIZE_X = 400;
 const CANVAS_SIZE_Y = 400;
 const CUBE_SIZE = 6;
 const GRID_SIZE_X = 5;
-const GRID_SIZE_Y = 5;
+const GRID_SIZE_Y = 4
 const GRID_DEPTH = 6;
 
 class Vector3 {
