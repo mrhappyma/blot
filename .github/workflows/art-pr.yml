@@ -7,9 +7,13 @@ on:
 jobs:
   comment-pr:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
             const owner = context.payload.repository.owner.login;
@@ -25,7 +29,7 @@ jobs:
             let also = false;
 
             for (const file of changedFiles.data) {
-              if (!file.filename.endsWith(index.js)) continue;
+              if (!file.filename.endsWith('index.js')) continue;
               const rawUrl = file.raw_url;
               const blotUrl = `https://blot.hackclub.com/editor?src=${rawUrl}`;
 
