@@ -49,20 +49,20 @@ jobs:
               owner: owner,
               repo: repo,
             });
-            const ecomment = comments.find((c) => c.body.includes("SUPER-COOL-BLOT-BOT-THING");
+            const ecomment = comments.find((c) => c.body.includes("SUPER-COOL-BLOT-BOT-THING"));
             if (ecomment) {
                 github.rest.issues.updateComment({
                     comment_id: ecomment.id,
                     owner: owner,
                     repo: repo,
-                    body: commentBody,
+                    body: commentbody,
                 });
             } else {
                 github.rest.issues.createComment({
                   issue_number: number,
                   owner: owner,
                   repo: repo,
-                  body: commentbody
+                  body: commentbody,
                 });
             }
 
