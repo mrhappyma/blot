@@ -34,10 +34,10 @@ jobs:
               const blotUrl = `https://blot.hackclub.com/editor?src=${rawUrl}`;
 
               if (!also) {
-                commentbody += `\`${file.path}\` looks like art! [preview it in the editor](${blotUrl})\n`
+                commentbody += `\`${file.filename}\` looks like art! [preview it in the editor](${blotUrl})\n`
                 also = true
               } else {
-                commentbody += `\`${file.path}\` *also* looks like art! [preview it in the editor](${blotUrl})\n`
+                commentbody += `\`${file.filename}\` *also* looks like art! [preview it in the editor](${blotUrl})\n`
               }
             }
 
